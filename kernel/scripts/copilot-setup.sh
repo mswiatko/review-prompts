@@ -51,7 +51,7 @@ else
     exit 0
 fi
 
-SLASH_COMMANDS_SRC="$PROMPTS_DIR/slash-commands"
+SLASH_COMMANDS_SRC="$PROMPTS_DIR/slash-commands/copilot"
 
 if [ ! -d "$SLASH_COMMANDS_SRC" ]; then
     echo "Warning: slash-commands directory not found, skipping"
