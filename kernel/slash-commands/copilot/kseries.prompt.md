@@ -4,7 +4,7 @@ description: "Deep dive regression analysis of an entire kernel patch series"
 argument-hint: "base_commit..head_commit [--cover-letter <message-id>]"
 agent: "agent"
 ---
-Read the prompt `{{KERNEL_REVIEW_PROMPTS_DIR}}/kernel/review-core.md`
+Read the prompt `{{KERNEL_REVIEW_PROMPTS_DIR}}/review-core.md`
 
 This performs deep dive regression analysis of an entire patch series (git range).
 

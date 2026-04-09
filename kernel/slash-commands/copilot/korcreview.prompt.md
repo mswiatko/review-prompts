@@ -7,9 +7,9 @@ MANDATORY: You MUST use read_file to load each of the following files at the
 start of every review, even if you think you already have them in context from
 a previous turn. Do not rely on memory or prior conversation state.
 
-1. Read `{{KERNEL_REVIEW_PROMPTS_DIR}}/kernel/agent/orc.md`
-2. Read `{{KERNEL_REVIEW_PROMPTS_DIR}}/kernel/technical-patterns.md`
-3. Read `{{KERNEL_REVIEW_PROMPTS_DIR}}/kernel/subsystem/subsystem.md`
+1. Read `{{KERNEL_REVIEW_PROMPTS_DIR}}/agent/orc.md`
+2. Read `{{KERNEL_REVIEW_PROMPTS_DIR}}/technical-patterns.md`
+3. Read `{{KERNEL_REVIEW_PROMPTS_DIR}}/subsystem/subsystem.md`
 
 Then load any additional subsystem guides matched by subsystem.md.
 

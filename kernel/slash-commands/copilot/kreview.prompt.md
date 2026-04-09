@@ -3,7 +3,7 @@ name: kreview
 description: "Deep dive kernel commit regression analysis using review-core.md"
 agent: "agent"
 ---
-Read the prompt `{{KERNEL_REVIEW_PROMPTS_DIR}}/kernel/review-core.md`
+Read the prompt `{{KERNEL_REVIEW_PROMPTS_DIR}}/review-core.md`
 
 If a git range is provided, it's meant for the false-positive-guide.md section
 
