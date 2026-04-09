@@ -64,7 +64,7 @@ else
     for cmd_file in "$SLASH_COMMANDS_SRC"/*.md; do
         if [ -f "$cmd_file" ]; then
             cmd_name=$(basename "$cmd_file")
-            sed "s|REVIEW_DIR|$PROMPTS_DIR|g" "$cmd_file" > "$COMMANDS_DIR/$cmd_name"
+            sed "s|{{KERNEL_REVIEW_PROMPTS_DIR}}|$PROMPTS_DIR|g" "$cmd_file" > "$COMMANDS_DIR/$cmd_name"
             echo "  /$cmd_name"
         fi
     done
