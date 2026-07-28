@@ -35,7 +35,10 @@ This installs:
     subagents (opencode Task tool); consolidates serially through stages 8-11
   - `/kreview-series` - Review a whole git range Sashiko-style by fanning out one
     full kreview-iterate reviewer subagent per commit (opencode Task tool), each
-    writing its own <short-sha>/review-inline.txt
+    writing its own <short-sha>/review-inline.txt. Add an effort token
+    (`high` = 2, `max` = 3, or an integer) to run that many independent reviewers
+    per commit and have the orchestrator reconcile them, countering stochastic
+    single-shot misses
   - `/kseries` - Review an entire patch series (git range) commit-by-commit
   - `/kdebug` - Debug kernel crashes and warnings
   - `/kverify` - Verify findings against false positive patterns

@@ -66,6 +66,12 @@ You will be given in the dispatch prompt:
    directory. Do not spawn further subagents; run your stages sequentially in
    your own context.
 
+   Exception — findings-only mode: if the dispatch prompt tells you to return the
+   findings JSON only and NOT write a report (this happens when you are one of
+   several replica reviewers for the same commit and the orchestrator will
+   reconcile and write the report), then run through Stage 10, return the Stage
+   10 findings JSON, and skip the Stage 11 file write entirely.
+
 ## Return value
 
 Return a compact summary to the orchestrator (not the full transcript):
