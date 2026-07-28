@@ -24,10 +24,9 @@ executed with `-h|--help` option.
 | iproute | `/iproute-review` | `/iproute-debug` | `/iproute-verify` |
 
 The kernel project also provides `/kreview-iterate`, a Sashiko-style iterative
-multi-stage single-commit review, and `/kreview-iterate-parallel`, which runs
-its stages 1-7 as parallel subagents on runtimes that support them (opencode).
-For a whole series, `/kreview-series` fans out one full per-commit reviewer
-subagent per commit in a git range. See [kernel/README.md](kernel/README.md).
+multi-stage single-commit review, and `/kreview-series`, which reviews a whole
+git range by fanning out one full per-commit reviewer subagent per commit on
+runtimes that support them (opencode). See [kernel/README.md](kernel/README.md).
 
 ## Project Documentation
 

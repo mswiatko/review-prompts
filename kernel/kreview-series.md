@@ -162,7 +162,6 @@ raising to the author.
 - Fresh per-commit context is the key: it prevents the single-session
   degradation where later commits get shortchanged.
 - Per-commit reviewers run stages sequentially (Task subagents cannot nest), so
-  this does not also parallelize the 7 stages within a commit the way
-  `/kreview-iterate-parallel` does for a single commit. Pick the tool by whether
-  you want per-commit or per-stage parallelism.
+  this parallelizes across commits, not across the 7 analysis stages within a
+  single commit.
 - Each per-commit report is self-contained under `./<short-sha>/`.

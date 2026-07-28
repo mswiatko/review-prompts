@@ -31,8 +31,6 @@ This installs:
 - **Slash commands** (`~/.claude/commands/`) - Quick access to common operations:
   - `/kreview` - Review a single commit for regressions
   - `/kreview-iterate` - Sashiko-style iterative multi-stage single-commit review
-  - `/kreview-iterate-parallel` - Same protocol, but runs stages 1-7 as parallel
-    subagents (opencode Task tool); consolidates serially through stages 8-11
   - `/kreview-series` - Review a whole git range Sashiko-style by fanning out one
     full kreview-iterate reviewer subagent per commit (opencode Task tool), each
     writing its own <short-sha>/review-inline.txt. Add an effort token
