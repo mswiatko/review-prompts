@@ -23,6 +23,11 @@ executed with `-h|--help` option.
 | systemd | `/systemd-review` | `/systemd-debug` | `/systemd-verify` |
 | iproute | `/iproute-review` | `/iproute-debug` | `/iproute-verify` |
 
+The kernel project also provides `/kreview-iterate`, a Sashiko-style iterative
+multi-stage single-commit review, and `/kreview-iterate-parallel`, which runs
+its stages 1-7 as parallel subagents on runtimes that support them (opencode).
+See [kernel/README.md](kernel/README.md).
+
 ## Project Documentation
 
 * [Kernel Review Prompts](kernel/README.md) - Linux kernel specific patterns and protocols

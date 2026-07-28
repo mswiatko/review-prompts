@@ -17,6 +17,11 @@
 #
 # Slash commands live in <project>/slash-commands/*.md and may use
 # {{REVIEW_DIR}} as a placeholder for the project directory path.
+#
+# Agent definitions (for agents that support them and export AGENTS_DIR, e.g.
+# opencode) live in <project>/<agent>-agents/*.md, e.g.
+# kernel/opencode-agents/*.md, and may use {{REVIEW_DIR}} or
+# {{<PROJECT>_REVIEW_PROMPTS_DIR}} placeholders.
 
 set -e
 
@@ -79,6 +84,28 @@ install_project() {
                 local cmd_name=$(basename "$cmd_file")
                 sed "s|{{REVIEW_DIR}}|$project_dir|g" "$cmd_file" > "$COMMANDS_DIR/$cmd_name"
                 echo "  /${cmd_name%.md}"
+            fi
+        done
+    fi
+
+    # Install agent definitions (only for agents that support them, i.e. those
+    # that export AGENTS_DIR).  Sourced from <project>/<agent>-agents/*.md, e.g.
+    # kernel/opencode-agents/*.md for opencode.
+    local src_agents="$project_dir/${AGENT}-agents"
+
+    if [ -n "$AGENTS_DIR" ] && [ -d "$src_agents" ]; then
+        mkdir -p "$AGENTS_DIR"
+
+        echo ""
+        echo "Installed agents:"
+
+        for agent_file in "$src_agents"/*.md; do
+            if [ -f "$agent_file" ]; then
+                local agent_name=$(basename "$agent_file")
+                sed -e "s|{{REVIEW_DIR}}|$project_dir|g" \
+                    -e "s|{{${prompts_dir_var}}}|$project_dir|g" \
+                    "$agent_file" > "$AGENTS_DIR/$agent_name"
+                echo "  ${agent_name%.md}"
             fi
         done
     fi

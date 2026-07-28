@@ -31,6 +31,8 @@ This installs:
 - **Slash commands** (`~/.claude/commands/`) - Quick access to common operations:
   - `/kreview` - Review a single commit for regressions
   - `/kreview-iterate` - Sashiko-style iterative multi-stage single-commit review
+  - `/kreview-iterate-parallel` - Same protocol, but runs stages 1-7 as parallel
+    subagents (opencode Task tool); consolidates serially through stages 8-11
   - `/kseries` - Review an entire patch series (git range) commit-by-commit
   - `/kdebug` - Debug kernel crashes and warnings
   - `/kverify` - Verify findings against false positive patterns
