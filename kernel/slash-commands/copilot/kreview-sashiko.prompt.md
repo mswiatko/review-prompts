@@ -1,10 +1,10 @@
 ---
-name: kreview-iterate
+name: kreview-sashiko
 description: "Sashiko-style iterative multi-stage kernel commit review"
 argument-hint: "[commit | base_commit..head_commit]"
 agent: "agent"
 ---
-Read the prompt `{{KERNEL_REVIEW_PROMPTS_DIR}}/kreview-iterate.md`
+Read the prompt `{{KERNEL_REVIEW_PROMPTS_DIR}}/kreview-sashiko.md`
 
 Treat that file's directory (`{{KERNEL_REVIEW_PROMPTS_DIR}}`) as the prompt
 directory: load all referenced guides (`subsystem/subsystem.md`,
@@ -21,23 +21,23 @@ sequentially ("iterate") inside one session, accumulating state between stages.
 
 Review the top/target commit:
 ```
-/kreview-iterate
+/kreview-sashiko
 ```
 
 Review a specific commit:
 ```
-/kreview-iterate <commit>
+/kreview-sashiko <commit>
 ```
 
 Review the target commit within a series (the range enables Stage 10
 series-validation, where a concern fixed by a later patch is dropped):
 ```
-/kreview-iterate base_commit..head_commit
+/kreview-sashiko base_commit..head_commit
 ```
 
 ## Workflow
 
-Follow `kreview-iterate.md` exactly:
+Follow `kreview-sashiko.md` exactly:
 
 1. Phase 0 - Pre-screen relevant `subsystem/*.md` guides (bias to inclusion;
    `locking.md` is deferred to Stage 5).

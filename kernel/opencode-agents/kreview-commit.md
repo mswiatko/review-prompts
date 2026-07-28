@@ -1,7 +1,7 @@
 ---
 description: >-
   One full Sashiko-style kernel review of a SINGLE commit, run in its own fresh
-  context. Executes the entire kreview-iterate protocol (Phase 0 plus stages
+  context. Executes the entire kreview-sashiko protocol (Phase 0 plus stages
   1-11) for the one target commit it is given and writes that commit's
   review-inline.txt. Used by the series orchestrator to fan out one reviewer per
   commit. Returns a short findings summary.
@@ -35,7 +35,7 @@ You will be given in the dispatch prompt:
 
 ## What to do
 
-1. Read `{{REVIEW_DIR}}/kreview-iterate.md` and treat its directory
+1. Read `{{REVIEW_DIR}}/kreview-sashiko.md` and treat its directory
    (`{{REVIEW_DIR}}`) as the prompt directory.
 
 2. Run the **entire** protocol from that file against your single target commit,

@@ -1,4 +1,4 @@
-Read the prompt {{REVIEW_DIR}}/kreview-iterate.md
+Read the prompt {{REVIEW_DIR}}/kreview-sashiko.md
 
 Treat that file's directory ({{REVIEW_DIR}}) as the prompt directory: load all
 referenced guides (subsystem/subsystem.md, subsystem/*.md, patterns/*, callstack.md,

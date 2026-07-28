@@ -30,9 +30,9 @@ This installs:
   kernel-specific context when working in kernel trees
 - **Slash commands** (`~/.claude/commands/`) - Quick access to common operations:
   - `/kreview` - Review a single commit for regressions
-  - `/kreview-iterate` - Sashiko-style iterative multi-stage single-commit review
-  - `/kreview-series` - Review a whole git range Sashiko-style by fanning out one
-    full kreview-iterate reviewer subagent per commit (opencode Task tool), each
+  - `/kreview-sashiko` - Sashiko-style iterative multi-stage single-commit review
+  - `/kreview-sashiko-series` - Review a whole git range Sashiko-style by fanning out one
+    full kreview-sashiko reviewer subagent per commit (opencode Task tool), each
     writing its own <short-sha>/review-inline.txt. Add an effort token
     (`high` = 2, `max` = 3, or an integer) to run that many independent reviewers
     per commit and have the orchestrator reconcile them, countering stochastic
