@@ -30,6 +30,7 @@ This installs:
   kernel-specific context when working in kernel trees
 - **Slash commands** (`~/.claude/commands/`) - Quick access to common operations:
   - `/kreview` - Review a single commit for regressions
+  - `/kreview-iterate` - Sashiko-style iterative multi-stage single-commit review
   - `/kseries` - Review an entire patch series (git range) commit-by-commit
   - `/kdebug` - Debug kernel crashes and warnings
   - `/kverify` - Verify findings against false positive patterns
