@@ -6,6 +6,7 @@
 # installed. Exports the install paths and skill filename expected by the
 # agent; additional per-agent setup steps (if any) can be added here.
 
-export SKILL_BASE_DIR="$HOME/.opencode/skills"
-export COMMANDS_DIR="$HOME/.opencode/commands"
+export SKILL_BASE_DIR="$HOME/.config/opencode/skills"
+export COMMANDS_DIR="$HOME/.config/opencode/commands"
+export AGENTS_DIR="$HOME/.config/opencode/agent"
 export SKILL_FILE_NAME="SKILL.md"
