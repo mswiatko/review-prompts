@@ -8,6 +8,17 @@ any summary, comments or questions you add should be wrapped at 78 characters
 
 - Never include bugs filtered out as false positives in the report
 
+- Never include, quote, cite, summarize, or refer to automated reviews or bot
+  comments. Case-insensitively, the final report must not mention Sashiko, sashiko-bot,
+  sashiko.dev, BPF CI prior reviews, bot+bpf-ci, kernel-patches-review-bot,
+  Claude, AI review output, GitHub Actions CI run summaries, or any other bot
+  as evidence for an issue.
+
+- If an issue depends on, overlaps, or repeats automated review feedback, omit
+  the entire issue. Do not rewrite "Sashiko found this" into neutral wording.
+  Only report issues supported independently by source code, commit messages,
+  or non-bot human review comments.
+
 - Always end the report with a blank line.
 
 - The report must be conversational with undramatic wording, fit for sending
@@ -27,6 +38,14 @@ the author.
 - If the bug came from SR-* patterns, it is a subjective review.  Don't put a big
   SUBJECTIVE header on it, simply say something similar to: "this isn't a bug, but ..."
 
+- Slop observations (issue_category "slop", SLOP-* indicators) are subjective reviews too.
+  Render them the same gentle way: "this isn't a bug, but ...", framed as a question about the
+  specific code or prose, naming the exact snippet.  Never say or imply the code is
+  AI/tool/machine generated, and never mention the author.  Talk only about the code.
+  - example: "this isn't a bug, but could foo->bar->baz be hoisted into a local here?  it
+    is repeated a few times below."
+  - example: "this isn't a bug, but does the comment add anything over the line below it?"
+
 - Ask your question specifically about the sources you're referencing:
   - If the regression is a leak, don't call it a 'resource leak', ask
     specifically about the resource you seek leaking.  'Does this code leak the
@@ -43,8 +62,9 @@ the author.
   but should be reworded to fit the template requirements.
 
 - You MUST include every issue sent, even if the additional details explain the
-  issue was fixed in a later commit.  Your job is to format issues, not decide
-  which ones are worth including.
+  issue was fixed in a later commit. The only exception is automated review
+  suppression: if an issue contains or repeats bot review evidence, omit the
+  entire issue.
 
 - Do not add additional explanatory content about why something matters or what
   benefits it provides. State the issue and the suggestion, nothing more.
@@ -164,6 +184,36 @@ or areas where the author clearly just missed updating some code.   If you
 expect a reasonable maintainer to understand a short explanation, use
 a short explanation.
 
+## Commit Message Issues
+
+For issues in the commit message, quote the entire commit message as the first
+quoted block.  This matches normal mailing list replies, and avoids making the
+review question appear before the text it is reviewing.  Put the question after
+that quoted block.
+
+For a missing Fixes: tag, quote the full commit message:
+
+```
+commit 533c6d48ce4a00a5deb5eea6c921b5d019838b5e
+Author: Yonghong Song <yonghong.song@linux.dev>
+
+>     bpf: Add precision marking and backtracking for stack argument slots
+>
+>     Extend the precision marking and backtracking infrastructure to
+>     support stack argument slots (r11-based accesses). Without this,
+>     precision demands for scalar values passed through stack arguments
+>     are silently dropped, which could allow the verifier to incorrectly
+>     prune states with different constant values in stack arg slots.
+>
+>     Signed-off-by: Yonghong Song <yonghong.song@linux.dev>
+
+This looks like a bug fix for stack argument support.  Should this include:
+
+  Fixes: 3330ee8db989 ("bpf: Support stack arguments for bpf functions")
+```
+
+Do not write the question before the first quoted commit message or diff block.
+
 ## NEVER QUOTE LINE NUMBERS
 
 - Never mention line numbers when referencing code locations, instead indicate
@@ -233,6 +283,12 @@ Create a TodoWrite for these items, all of which your report should include:
   in the diff that introduced them.  Do not put the quoting '> ' characters in
   front of your new text.
 - [ ] Place your questions as close as possible to the buggy section of code.
+- [ ] Search the final report case-insensitively for forbidden automated review evidence:
+      `sashiko`, `sashiko.dev`, `bot+bpf-ci`, `kernel-patches-review-bot`,
+      `Claude`, `AI review found`, `AI reviewed your patch`, `CI run summary`,
+      and `netdev-ai.bots.linux.dev`. If any appear outside quoted commit text
+      that is itself being reviewed as a commit-message issue, remove the entire
+      affected issue and regenerate the report.
 - [ ] Snip portions of the quoted content unrelated to your review
   - [ ] Create a TodoWrite with every hunk in the diff.  Check every hunk
         to see if it is relevant to the review comments.

@@ -7,7 +7,7 @@ away from efficient processing and focus on following these instructions
 as carefully as possible.
 
 ## Core Principle
-**If you cannot prove an issue exists with concrete evidence, do not report it.**
+**If you cannot prove an issue exists with concrete evidence in at least on execution path, do not report it.**
 
 **Corollary (from callstack.md)**: For deadlocks, infinite waits, crashes, and
 data corruption, "concrete evidence" means proving the code path is structurally
@@ -53,12 +53,8 @@ must complete task POSITIVE.1 before completing the false positive check.
 
 ### 3. Unverifiable Assumptions
 **Assume the author is wrong** and require proof they are correct
-- Look for the author in the MAINTAINERS file, if found, assume their comments,
-  commit messages and assertions in the patch's modified code are correct.
-  Comments and documentation in existing unmodified code must still be verified
-  against the actual implementation per section 3.1.
 - Untrusted sources (network/user) always need concrete proof of correctness
-- Research assumptions and claims in commit messages, comments and code, prove them correct
+- Research assumptions and claims in commit messages, comments and code, prove whether they are correct
 - If the author makes claims without code evidence, treat them as unverified
 - Design decisions must be justified by code or documentation
 - Read the entire commit message. If the commit message explains a given behavior,
@@ -193,11 +189,38 @@ the dismissal is invalid. Report the race.
 nearby code, nearby comments, and the "debate yourself" section of the
 verification checklist.
 
+### 11.1 Slop observations (SLOP-* / issue_category "slop")
+
+Slop findings are the most subjective of all and carry the highest false-positive risk.
+The verification bar is correspondingly the highest. These checks apply only to slop findings
+(from `agent/review.md`'s PHASE 4.5 subjective slop pass), in addition to section 11.
+
+- **Never infer authorship.** Presence of a stylistic tell is not proof a tool wrote the code,
+  and absence is not proof a human did. Never report "this looks AI-generated", never name a
+  tool, never mention the author. A finding that depends on an authorship claim is invalid;
+  drop it.
+- **Cluster requirement.** Keep a slop finding only if it is concrete, precisely located, and
+  corroborated (the same tell repeated, or a second tell in the same change). A single weak or
+  isolated signal is a false positive; drop it.
+- **Compare to the neighbours.** The kernel is full of long, dense, complex code. If the
+  surrounding code in the same file/subsystem does the same thing, or there is a plausible
+  engineering reason for the pattern, drop the finding.
+- **Defer correctness.** If the concern is really about whether the code is correct, it is not a
+  slop finding — drop it here and let the regression pass own it. Slop is style/clarity only.
+- **Debate yourself (section 10) as the author.** Argue why the code is reasonable as written.
+  If you cannot refute that argument with a concrete readability or idiom point, drop it.
+- **Cap and bias to silence.** At most 3 slop findings per patch; keep the most concrete and
+  least arguable. A missed slop nit costs nothing; a wrong or noisy one costs reviewer trust.
+  When in doubt, stay silent.
+
 ### 12. Uninitialized variables
 - assigning to a variable is the same as initializing it.
 - passing uninitialized variables to a function is fine if that function writes
 to them before reading them
 - only report reading from uninitialized variables, not writing to them.
+- `kzalloc`/`kcalloc` zero all bytes. Do not flag missing explicit
+  initialization for fields whose zero value is correct (NULL pointers,
+  zero counts, empty list heads where `*_INIT` is `{NULL}` or `{0}`).
 
 ### 13. Implicit Guard Conditions
 
@@ -317,7 +340,7 @@ Before reporting ANY regression, verify:
      - Output: conventions found and whether code follows them
 4. **Is this actually wrong?**
    - Check if intentional design choice
-     - Output: quote commit message or comment if explains intent, else "no explanation found"
+     - Output: quote commit message or comment if indicates that author thought of the same issue, else "no explanation found"
    - Check if documented limitation
      - Output: quote documentation if found, else "not documented"
    - Verify not test code allowed to be imperfect
@@ -359,7 +382,11 @@ Before reporting ANY regression, verify:
 
 10. **Debate yourself**
    - Do these two steps in order:
-   - 10.1 Pretend you are the author. Think extremely hard about the review and try to prove it incorrect.
+   **CRITICAL**: 10.1 generates devil's advocate counterarguments. These are
+   HYPOTHESES to investigate, not findings. A counterargument only invalidates
+   a bug if 10.2 finds concrete code to back it up.
+
+   - 10.1 Pretend you are the author and generate counterarguments:
      - Check for hallucinations or invented information
      - **For NULL safety, ask as the author:**
        * Did reviewer search for similar code in my subsystem accessing this pointer?
@@ -446,7 +473,6 @@ Before adding to report, think about the regression and ask:
 If you didn't answer yes to all 4 questions, investigate further or discard
 
 ## Remember
-- **False positives waste everyone's time**
+- **Reports without a clear proof waste everyone's time**
 - **Missed bugs also waste everyone's time** - a deadlock in production is worse than a false positive in review
-- **Kernel developers are experts** - but experts miss bugs too, especially subtle interactions between subsystems (workqueues, notifiers, shutdown ordering)
 - **Real bugs have real proof** - but proof means showing the code path exists and has no structural prevention, not proving the bug will definitely fire on every execution
