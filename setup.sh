@@ -34,7 +34,7 @@ usage() {
     echo ""
     echo "Arguments:"
     echo "  <agent>     Install skill and commands for this code agent"
-    echo "              Available agents: claude, codex, opencode, gemini"
+    echo "              Available agents: claude, codex, opencode, gemini, cline, copilot"
     echo "  <project>   Install skills and commands for this project"
     echo "              Available projects: iproute, kernel, systemd"
     echo ""
